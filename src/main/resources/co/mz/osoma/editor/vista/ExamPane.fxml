@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.osoma.editor.controlador.ExamPaneController">
+   <children>
+      <DialogPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox prefHeight="400.0" prefWidth="500.0">
+               <children>
+                  <TableView fx:id="tblQuestions" prefHeight="400.0" prefWidth="500.0">
+                    <columns>
+                      <TableColumn fx:id="item" prefWidth="75.0" text="Item" />
+                      <TableColumn fx:id="type" prefWidth="75.0" text="Type" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </content>
+      </DialogPane>
+   </children>
+</AnchorPane>
