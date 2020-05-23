@@ -162,7 +162,7 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
                                                 ((QuestionMultiChoice)mainGUIController.getSeletedItem().getValue()).getChoices().add(choice);
                                                 mainGUIController.makeBranch(new Choice(), mainGUIController.getSeletedItem());
                                             }
-                                        }
+                                        } ////
                                 )
                                 .build(),
                         MenuItemBuilder.create()
