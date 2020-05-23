@@ -13,12 +13,14 @@ import javafx.scene.control.cell.TextFieldTreeCell;
 
 import co.mz.osoma.editor.controlador.MainGUIController;
 
+import java.util.Collection;
+
 /**
  * @author Lenovo
  */
 public class MyTreeCell extends TextFieldTreeCell<Object> {
 
-    private ContextMenu questionMenu, examMenu, choiceMenu;
+    private ContextMenu questionMenu, examMenu, choiceMenu, collection;
     private MainGUIController controller;
 
     public MyTreeCell(MainGUIController mainGUIController) {
@@ -227,10 +229,10 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
         super.updateItem(item, empty);
 
 
-//        if (!empty && getTreeItem().isLeaf()) {
-//            setContextMenu(null);
-//            return;
-//        }
+       if (!empty && getTreeItem().isLeaf()) {
+            setContextMenu(null);
+            return;
+        }
 
         if(!empty && item instanceof Exam){
             setContextMenu(examMenu);
@@ -246,6 +248,8 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
             setContextMenu(choiceMenu);
             return;
         }
+
        setContextMenu(questionMenu);
     }
+
 }
