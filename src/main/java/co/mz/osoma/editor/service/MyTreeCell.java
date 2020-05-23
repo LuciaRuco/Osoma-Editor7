@@ -13,12 +13,14 @@ import javafx.scene.control.cell.TextFieldTreeCell;
 
 import co.mz.osoma.editor.controlador.MainGUIController;
 
+import java.util.Collection;
+
 /**
  * @author Lenovo
  */
 public class MyTreeCell extends TextFieldTreeCell<Object> {
 
-    private ContextMenu questionMenu, examMenu, choiceMenu;
+    private ContextMenu questionMenu, examMenu, choiceMenu, collection;
     private MainGUIController controller;
 
     public MyTreeCell(MainGUIController mainGUIController) {
@@ -36,7 +38,7 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
                             questionMultiChoice.setQtype(QuestionType.SIGLE);
                             ((Exam)mainGUIController.getSeletedItem().getValue()).getQuestions().add(questionMultiChoice);
 
-                            TreeItem<Object> node = mainGUIController.makeBranch(questionMultiChoice, mainGUIController.getSeletedItem());
+                          TreeItem<Object> node = mainGUIController.makeBranch(questionMultiChoice, mainGUIController.getSeletedItem());
 
                             Helper.totalChoices = 0;
 
@@ -60,10 +62,12 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
                         try {
 
                             QuestionMultiChoiceCaseStudy questionMultiChoiceCaseStudy=new QuestionMultiChoiceCaseStudy();
-                            questionMultiChoiceCaseStudy.setQtype(QuestionType.SIGLE);
-                            ((Exam)mainGUIController.getSeletedItem().getValue()).getQuestions().add(questionMultiChoiceCaseStudy);
+                            questionMultiChoiceCaseStudy.setQtype(QuestionType.MULTICASESTUDY);
+                           ((Exam)mainGUIController.getSeletedItem().getValue()).getQuestions().add(questionMultiChoiceCaseStudy);
 
-                            TreeItem<Object> node = mainGUIController.makeBranch(questionMultiChoiceCaseStudy, mainGUIController.getSeletedItem());
+
+                            TreeItem<Object> node = mainGUIController.makeBranch(questionMultiChoiceCaseStudy,  mainGUIController.getSeletedItem());
+
 
                             Helper.totalChoices = 0;
 
@@ -71,6 +75,8 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
                                 Choice choice = new Choice();
                                 questionMultiChoiceCaseStudy.getChoices().add(choice);
                                 mainGUIController.makeBranch(choice, node);
+
+
                             }
 
                         }catch (Exception e){
@@ -223,10 +229,10 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
         super.updateItem(item, empty);
 
 
-//        if (!empty && getTreeItem().isLeaf()) {
-//            setContextMenu(null);
-//            return;
-//        }
+       if (!empty && getTreeItem().isLeaf()) {
+            setContextMenu(null);
+            return;
+        }
 
         if(!empty && item instanceof Exam){
             setContextMenu(examMenu);
@@ -242,6 +248,8 @@ public class MyTreeCell extends TextFieldTreeCell<Object> {
             setContextMenu(choiceMenu);
             return;
         }
+
        setContextMenu(questionMenu);
     }
+
 }

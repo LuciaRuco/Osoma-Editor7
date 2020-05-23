@@ -89,9 +89,9 @@ public class CustomRootObjectDeserializer extends StdDeserializer<RootObject> {
     }
 }
 
-class QuestionFactory{
+class QuestionFactory {
 
-    public Question create(JsonNode questionNode){
+    public Question create(JsonNode questionNode) {
 
 
         String questionType = questionNode.get("qtype").asText();
@@ -100,14 +100,14 @@ class QuestionFactory{
         if (questionType.equals(QuestionType.SIGLE.toString())) {
             QuestionMultiChoice question = new QuestionMultiChoice();
 
-            question.setId( questionNode.get("id").asText());
+            question.setId(questionNode.get("id").asText());
             question.setQtype(QuestionType.SIGLE);
 
-            if(!questionNode.get("question").asText().equals("null"))
-            question.setQuestion(questionNode.get("question").asText());
+            if (!questionNode.get("question").asText().equals("null"))
+                question.setQuestion(questionNode.get("question").asText());
 
-            if(!questionNode.get("feedback").asText().equals("null"))
-            question.setFeedback(questionNode.get("feedback").asText());
+            if (!questionNode.get("feedback").asText().equals("null"))
+                question.setFeedback(questionNode.get("feedback").asText());
 
             JsonNode choices = questionNode.get("choices");
             List<Choice> choiceList = new ArrayList<>();
@@ -116,11 +116,11 @@ class QuestionFactory{
 
                 newChoice.setId(choice.get("id").asText());
 
-                if(!choice.get("description").asText().equals("null"))
-                newChoice.setDescription(choice.get("description").asText());
+                if (!choice.get("description").asText().equals("null"))
+                    newChoice.setDescription(choice.get("description").asText());
 
-                if(!choice.get("label").asText().equals("null"))
-                newChoice.setLabel(choice.get("label").asText());
+                if (!choice.get("label").asText().equals("null"))
+                    newChoice.setLabel(choice.get("label").asText());
                 newChoice.setRightChoice(choice.get("rightChoice").asBoolean());
 
                 choiceList.add(newChoice);
@@ -136,13 +136,53 @@ class QuestionFactory{
         if (questionType.equals(QuestionType.MULTI.toString())) {
             return null;
         }
+        /**
+         * @uachave
+         */
         if (questionType.equals(QuestionType.MULTICASESTUDY.toString())) {
 
-            return null;
-        }
+            QuestionMultiChoiceCaseStudy questionMultiChoiceCaseStudy = new QuestionMultiChoiceCaseStudy();
 
+            questionMultiChoiceCaseStudy.setId(questionNode.get("id").asText());
+            questionMultiChoiceCaseStudy.setQtype(QuestionType.MULTICASESTUDY);
+
+            if (!questionNode.get("question").asText().equals("null"))
+                questionMultiChoiceCaseStudy.setQuestion(questionNode.get("question").asText());
+
+            if (!questionNode.get("feedback").asText().equals("null"))
+                questionMultiChoiceCaseStudy.setFeedback(questionNode.get("feedback").asText());
+            if (!questionNode.get("question").asText().equals("null"))
+                questionMultiChoiceCaseStudy.setCaseOfStudy(questionNode.get("Case Study").asText());
+
+            JsonNode choices = questionNode.get("choices");
+            List<Choice> choiceList = new ArrayList<>();
+            choices.forEach(choice -> {
+                Choice newChoice = new Choice();
+
+                newChoice.setId(choice.get("id").asText());
+
+                if (!choice.get("description").asText().equals("null"))
+                    newChoice.setDescription(choice.get("description").asText());
+
+                if (!choice.get("label").asText().equals("null"))
+                    newChoice.setLabel(choice.get("label").asText());
+                newChoice.setRightChoice(choice.get("rightChoice").asBoolean());
+
+                choiceList.add(newChoice);
+            });
+
+            questionMultiChoiceCaseStudy.setChoices(choiceList);
+
+            return questionMultiChoiceCaseStudy;
+
+
+        }
         return null;
     }
-
-
 }
+
+
+
+
+
+
